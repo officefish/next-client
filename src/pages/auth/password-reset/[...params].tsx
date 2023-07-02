@@ -1,0 +1,37 @@
+import PasswordReset from "@components/screens/auth/password-reset"
+import { NextPageWithLayout } from "@utilities/layout.types"
+import Layout from "@components/layout/Layout"
+import type { GetServerSideProps } from 'next'
+import { TokenProps } from "@utilities/form.types"
+import Providers from "@/providers"
+
+const PasswordResetPage: NextPageWithLayout<TokenProps> = ({email, expires, token}) => {
+  
+  return (
+    <Providers themeProps={PasswordResetPage.theme}>
+      <Layout title="Reset Password.">
+        <PasswordReset email={email} expires={expires} token={token} />
+      </Layout>
+  </Providers>
+  )
+}
+export default PasswordResetPage
+
+export const getServerSideProps:GetServerSideProps = async (context) => {
+    // // connect to your db to check if it exists, make a webservice call...
+  if (!context.query.params || context.query.params.length !== 3) {
+     return { notFound: true }
+  }
+
+  return {
+    props: {
+      email: context.query.params[0],
+      expires: context.query.params[1],
+      token: context.query.params[2]
+    }
+  }
+}
+
+PasswordResetPage.theme =  {
+  themes: ['daisy', 'cmyk'],
+} 

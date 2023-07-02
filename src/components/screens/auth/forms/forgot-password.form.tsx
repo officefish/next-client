@@ -1,0 +1,22 @@
+import { FC } from "react"
+import { FormProps } from "@utilities/form.types"
+import FormField from "@/components/form/dev/field"
+
+import { 
+    DevForm,
+    DevSubmitWrapper,
+    DevSubmitButton
+} from "@/components/form/dev-form-styled"
+
+const ForgotPasswordForm : FC<FormProps> = ({title, register, handleSubmit, submitHandler, errors}) => {
+    return (
+        <DevForm onSubmit={handleSubmit(submitHandler)}>
+            <FormField title='Email' register={register} errors={errors} />
+            <DevSubmitWrapper>
+                <DevSubmitButton>{title}</DevSubmitButton>
+            </DevSubmitWrapper>
+        </DevForm>
+   )
+}
+
+export default ForgotPasswordForm

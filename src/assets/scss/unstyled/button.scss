@@ -1,0 +1,76 @@
+                                    // tailwind support:
+.btn {
+    /* display */
+    display: inline-flex;           // inline-flex
+    flex-grow: initial;             // flex-grow-0
+    flex-shrink: 0;                 // flex-shrink-0;
+    flex-basis: auto;       
+    /* flex setup */
+    flex-wrap: wrap;                // flex-wrap
+    flex-grow: initial;
+    flex-direction: initial;
+    /* flex align */
+    justify-content: center;        // justify-center 
+    align-items: center;            // items-center
+    /* text setup */
+    text-align: center;             // text-center
+    line-height: 1em;  
+              
+    /* usability */
+    user-select: none;              // select-none
+    /* cursor setup */
+    cursor: pointer;                // cursor-pointer
+    /* border */
+    border-color: transparent; 
+
+    
+
+    &-disabled,
+    &[disabled] {
+        pointer-events: none; 
+    }
+
+    
+    /* loading */
+    &.loading {
+        &,
+        &:hover {
+            @apply pointer-events-none;
+        }
+        &:before {
+            @apply mr-2 h-4 w-4 rounded-full border-2;
+            animation: spin 2s linear infinite;
+            content: "";
+            border-top-color: transparent;
+            border-left-color: transparent;
+            border-bottom-color: currentColor;
+            border-right-color: currentColor;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn.loading:before {
+      animation: spin 10s linear infinite;
+    }
+}
+
+@keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+}
+  
+  /* group */
+.btn-group {
+    @apply inline-flex;
+    & > input[type="radio"].btn {
+      @apply appearance-none;
+    }
+    & > input[type="radio"].btn:before {
+      content: attr(data-title);
+    }
+}

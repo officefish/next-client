@@ -1,0 +1,53 @@
+
+.header_container {
+    @apply 
+    fixed z-50 
+    top-0 
+    left-0 
+    w-full
+    shadow-lg
+    shadow-gray-900
+    flex 
+    items-start 
+    justify-between  
+    h-16
+    bg-gray-900;
+}
+
+.header_description_wrapper {
+    @apply 
+    flex
+    h-12
+    pl-4 
+    items-end 
+    justify-end;
+}
+
+.header_description { 
+    @apply 
+    text-base 
+    text-gray-500 
+    ml-2 
+    font-normal 
+    cursor-default 
+    whitespace-nowrap;
+    span, a {
+        @apply font-old-english;
+    }
+}
+
+
+.header_navbar {
+    @apply 
+    flex 
+    h-8
+    items-end 
+    justify-center 
+    font-old-english 
+    text-gray-500 
+    text-base;
+}
+
+.header_offset {
+    @apply h-16;
+}

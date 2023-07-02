@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+
+//@import './unstyled/index.scss';
+// @import './shapes/index.scss';
+// @import "./transitions/index.scss";
+// @import "./effects/index.scss";
+
+@tailwind utilities;
+
+@import './sliced-effect';
+//@import './dev-form';
+@import './lattice.scss';
+
+
+:root {
+  --background-color: black;
+  --text-color: hsl(0, 0%, 100%);
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  //background: #edf2f7;
+  @apply bg-base-100 dark:bg-base-100-dark;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+h1 {
+  color: var(--tw-prose-headings);
+  font-weight: 800;
+  font-size: 2.25em;
+  margin-top: 0;
+  margin-bottom: 0.8888889em;
+  line-height: 1.1111111;
+}
+
+canvas {
+  @apply w-full;
+  //height: 100vh;
+  //width: 100vw;
+}
+
+.oft-col {
+  @apply flex flex-col items-center w-full;
+}
+.oft-row {
+  @apply flex flex-row justify-center w-full;
+}
+.oft-row-between {
+  @apply flex flex-row justify-between w-full;
+}
+.oft-row-between-1\/2 {
+  @apply flex flex-row justify-between;
+  min-width: 50%;
+}
+
+// [type='checkbox']:checked, [type='radio']:checked {
+//   @apply appearance-none;
+// }
+
+

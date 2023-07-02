@@ -1,0 +1,20 @@
+
+.logo_wrapper {
+    @apply h-8 text-3xl bg-transparent cursor-pointer;
+}
+
+.logo_top {
+    @apply bg-transparent text-gray-400 font-bold font-old-english;
+}
+
+.logo_wrapper:hover .logo_top {
+    @apply text-cyan-300;
+}
+
+.logo_bottom {
+    @apply font-old-english bg-gradient-to-t from-gray-600 to-gray-400 font-bold;
+}
+
+.logo_wrapper:hover .logo_bottom {
+    @apply bg-gradient-to-b from-blue-900 to-cyan-300;
+}
