@@ -28,6 +28,7 @@ body {
   //background: #edf2f7;
   @apply bg-base-100 dark:bg-base-100-dark;
   max-width: 100%;
+  overflow: auto;
   overflow-x: hidden;
 }
 

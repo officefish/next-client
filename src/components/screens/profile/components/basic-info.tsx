@@ -1,41 +1,28 @@
 import { FC } from "react"
-import styles from './Profile.module.scss'
+import styles from '../Profile.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState, useEffect } from 'react'
 
-interface IFullName {
-    firstName?: string
-    secondName?: string
-} 
+import {
+    BasicInfoWrapper,
+    BasicInfoFullname,
+    BasicInfoLocation,
+    BasicInfoCareer,
+    BasicInfoEducation
+} from '../styled-profile'
 
-interface ILocation {
-    country?: string
-    city?: string
-}
+import { IBasicInfo, IFullName, ILocation, ICareer } from "@models/profile.types"
 
-interface ICareer {
-    company?: string
-    role?: string
-}
-
-interface IEducation {
-    university?: string
-    faculty?: string
-}
-
-interface IBasicInfo {
-    fullName: IFullName
-    location: ILocation
-    career: ICareer
-    education: IEducation
-}
 
 interface BasicInfoProps {
-    data: IBasicInfo
+    data?: IBasicInfo
 }
 
 
-const isComplete = (data: IBasicInfo) :boolean => {
+const isComplete = (data?: IBasicInfo) :boolean => {
+
+    if (data === undefined) return false
+
     const isFullName = data.fullName.firstName !== undefined
     const isLocation = data.location.country !== undefined
     const isCareer = data.career.company !== undefined
@@ -51,7 +38,7 @@ const fullNameAsString = (fullName:IFullName) => {
 
 const locationAsString = (location:ILocation) => {
     let locationStr = location.country as string
-    locationStr += location.city ? `, ${location.city}.` : "."
+    locationStr += location.region ? `, ${location.region}.` : "."
     return locationStr
 }
 
@@ -61,17 +48,8 @@ const careerAsString = (career:ICareer) => {
     return careerStr
 }
 
-const universityAsString = (education:IEducation) => {
-    return `${education.university}.`
-}
-
-const facultyAsString = (education:IEducation) => {
-    return `${education.faculty}.`
-}
 
 const BasicInfo: FC<BasicInfoProps> = ({data}) => {
-
-    //console.log(data)
 
     const [completeInfo, setCompleteInfo] = useState(false)
     
@@ -81,22 +59,26 @@ const BasicInfo: FC<BasicInfoProps> = ({data}) => {
   
     return (
     <>{completeInfo ? ( 
-        <div className={styles.profile_basicInfo}>
-            <h3>{fullNameAsString(data.fullName)}</h3>
-            <div className={styles.location}>
+        <BasicInfoWrapper>
+            <BasicInfoFullname>
+                {data && fullNameAsString(data.fullName)}
+            </BasicInfoFullname>
+            <BasicInfoLocation>
                 <FontAwesomeIcon className="text-base" icon={["fas", "map-marker-alt"]} />
-                <span className="ml-2">{locationAsString(data.location)}</span>
-            </div>
-            <div className={styles.career}>
+                <span className="ml-2">{data && locationAsString(data.location)}</span>
+            </BasicInfoLocation>
+            <BasicInfoCareer>
                 <FontAwesomeIcon className="text-gray-400" icon={["fas", "briefcase"]} />
-                <span className="ml-2">{careerAsString(data.career)}</span>
-            </div>
-            <div className={styles.education} >
+                <span className="ml-2">{data && careerAsString(data.career)}</span>
+            </BasicInfoCareer>
+            <BasicInfoEducation>
                 <FontAwesomeIcon className="text-gray-400" icon={["fas", "university"]} />
-                <span className="ml-2">{universityAsString(data.education)}</span>
-                {data.education.university && <span className="ml-2 block text-xs">{data.education.faculty}</span>}
-            </div>
-        </div>
+                <span className="ml-2">{data && data.education.university}</span>
+                {data && data.education.university && 
+                    <span className="ml-2 block text-xs">{data.education.faculty}</span>
+                }
+            </BasicInfoEducation>
+        </BasicInfoWrapper>
     ) : (
         <div>Mini game here, if not :)</div>
     )}</>

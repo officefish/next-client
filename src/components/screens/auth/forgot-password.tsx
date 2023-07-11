@@ -12,8 +12,11 @@ import {
     DevFormWrapper,
     DevFormHeader2, 
     DevNoForm,
-    Copyright
+    Copyright,
+    DevFormFieldError
 } from "@/components/form/dev-form-styled"
+
+import { ErrorSVG } from "@components/ui/svg"
 
 const email = {
     email: z.string({
@@ -53,6 +56,12 @@ const ForgotPassword : FC = () => {
         <DevFormLayout> 
             <DevFormWrapper>
                 <DevFormHeader2>{title}</DevFormHeader2>
+                {serverError?.message && 
+                    <DevFormFieldError>
+                        <ErrorSVG />
+                        {serverError.message?.toString()} 
+                    </DevFormFieldError>
+                }  
                 {isSent? (
                     <DevNoForm>
                         <p className="text-sm text-center w-full px-3 pt-2">
@@ -73,9 +82,7 @@ const ForgotPassword : FC = () => {
                     errors={errors}
                  />
                 )}
-                <Copyright>&#x00a9; 2023 Techies Group. All rights reserved.</Copyright>
-                {serverError?.message && 
-                    <p className="server_error">{serverError.message?.toString()}</p>}    
+                <Copyright>&#x00a9; 2023 Techies Group. All rights reserved.</Copyright> 
             </DevFormWrapper>
         </DevFormLayout>
   )

@@ -1,6 +1,11 @@
 import { FC } from "react"
 import Image, { StaticImageData } from "next/image"
-import styles from './Profile.module.scss'
+
+import { 
+    StyledAvatarLayout, 
+    StyledAvatarWrapper, 
+    AvatarImageClasses
+} from "../styled-profile"
 
 interface AvatarProps {
     avatar: StaticImageData
@@ -9,15 +14,15 @@ interface AvatarProps {
 const Avatar: FC<AvatarProps> = ({avatar}) => {
 
     return (
-        <div className={styles.avatar_layout}>  
-            <div className={styles.avatar_wrapper}>
+        <StyledAvatarLayout>  
+            <StyledAvatarWrapper>
                 <Image alt="avatar" 
                     src={avatar.src} 
                     width={120} 
                     height={120} 
-                    className={styles.avatar_image} />
-            </div>
-        </div>  
+                    className={AvatarImageClasses} />
+            </StyledAvatarWrapper>
+        </StyledAvatarLayout>  
     )
 }
 export default Avatar

@@ -17,6 +17,7 @@
 .profile_wrapper {
     @apply block ml-[7%] mr-[7%] md:ml-[15%] md:mr-[15%];
 }
+
 .profile_body {
     @apply 
     relative 
@@ -64,15 +65,17 @@
     items-end
     h-16
     mt-12 lg:mt-1
-    justify-center lg:justify-start 
-    w-full lg:w-auto;
+    justify-center 
+    w-full
+    lg:justify-start 
+    lg:w-auto;
 }
 
 .functional_block {
     @apply
     flex 
     items-end 
-    h-16
+    h-20
     mr-[2vw]
     justify-center lg:justify-end 
     w-full lg:w-auto;

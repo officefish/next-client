@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { FC, MouseEvent } from "react"
+import { FC, MouseEvent, useState, useEffect } from "react"
 
 import { useRouter } from "next/router"
 
@@ -15,8 +15,10 @@ import UserItem from "./UserItem"
 import { 
     StyledHeaderNavigation,
     StyledDropdown,
-    DropdownButton,
+    NavigationButton,
     DropdownContent,
+    DropdownContentGrid,
+    StyledDropdownButton,
     StyledButton
 
 } from "./styled-header"
@@ -24,6 +26,8 @@ import {
 import {
     DropdownArrow
 } from '@components/ui/svg'
+
+import avatar from '@public/team-2-800x800.jpg'
 
 const HeaderNavigation:FC = () => {
 
@@ -43,42 +47,41 @@ const HeaderNavigation:FC = () => {
         setMode(event.currentTarget.value)
     }
 
+    const [faDefinition, setFaDefinition] = useState(faSun)
+
+    useEffect(() => {
+        mode === 'light' 
+            ? setFaDefinition(faSun)
+            : setFaDefinition(faMoon)
+    }, [mode])
+
     return( 
-        <StyledHeaderNavigation $fontFamily="old-english">
-            {/* <Link className='mr-2 hidden xl:flex hover:text-cyan-500 cursor-pointer whitespace-nowrap' href='/about-us'>About us.</Link>
-            <Link className='mr-2 hidden md:flex hover:text-cyan-500 cursor-pointer whitespace-nowrap' href='/contact-us'>Contact us.</Link>
-            <Link className='mr-2 hidden lg:flex hover:text-cyan-500 cursor-pointer whitespace-nowrap' href='/studing'>Studing with us.</Link>
-            <Link className='mr-2 hidden md:flex hover:text-cyan-500 cursor-pointer whitespace-nowrap' href='/donation'>Support us.</Link> */}
-            
+        <StyledHeaderNavigation $fontFamily="old-english">         
             <StyledDropdown title="Change mode">
-                <DropdownButton tabIndex={0}>
-                    { mode === 'light' 
-                        ? ( <FontAwesomeIcon icon={faSun} /> )
-                        : ( <FontAwesomeIcon icon={faMoon} /> )
-                    }
+                <NavigationButton tabIndex={0}>
+                    <FontAwesomeIcon icon={faDefinition} />
                     <span className="hidden md:inline">Mode</span>
                     <DropdownArrow />
-                </DropdownButton>
-                <DropdownContent className="h-[19vh]">
-                    <div className="grid grid-cols-1 gap-3 p-3">
+                </NavigationButton>
+                <DropdownContent>
+                    <DropdownContentGrid>
                         { modes && <>
                             {modes.map((item, i) => {
                                 return ( 
-                                <button key={i} value={item} 
-                                type="button"
-                                className={`btn ${item === mode ? 'btn-primary' : 'btn-ghost'} `}
-                                onClick={handleMode}
-                                >{item}</button>
+                                    <DropdownListButton key={i} 
+                                    item={item}
+                                    active={item === mode} 
+                                    onClick={handleMode} />
                                 )
                             })}
                             </>
                         }
-                    </div>
+                    </DropdownContentGrid>
                 </DropdownContent>
             </StyledDropdown>
             
             {user && user.authenticated ? (
-                <UserItem name={user.name} />
+                <UserItem name={user.name} avatar={avatar}/>
             ):(
                 <StyledButton onClick={signInHandleClick}>Sign In</StyledButton>
             )}
@@ -87,3 +90,24 @@ const HeaderNavigation:FC = () => {
 }
 
 export default HeaderNavigation
+
+interface IActiveDropdown {
+    active: boolean
+    item: string
+    onClick: (e:MouseEvent<HTMLButtonElement>) => void
+}
+
+const DropdownListButton:FC<IActiveDropdown> = ({active, item, onClick}) => {
+
+    const [isActive, setIsActive] = useState(false)
+
+    useEffect(() => setIsActive(active), [active])
+
+    return (
+        <StyledDropdownButton value={item} 
+        type="button" 
+        $active={isActive}
+        onClick={onClick}
+        >{item}</StyledDropdownButton>
+    )
+}

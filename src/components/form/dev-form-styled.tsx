@@ -21,9 +21,10 @@ font-display
 
 export const DevFormWrapper = tw.div`
 card
-w-full 
 max-w-sm 
 shadow-2xl 
+flex flex-col
+items-center
 bg-base-100
 dark:bg-base-100-dark
 `
@@ -88,4 +89,12 @@ export const DevFormLabelInput = tw.input`
 input input-bordered input-primary
 placeholder-primary/70
 dark:placeholder-secondary-dark/70
+`
+
+export const DevFormFieldWarning = tw.div`
+alert alert-warning mt-2
+`
+
+export const DevFormFieldError = tw.div`
+alert alert-error mt-2 w-[95%] text-sm
 `

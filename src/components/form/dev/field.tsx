@@ -5,13 +5,13 @@ import {
     DevFormField,
     DevFormLabel,
     DevFormLabelText,
-    DevFormLabelInput
+    DevFormLabelInput,
+    DevFormFieldWarning
 } from "../dev-form-styled"
 
 import { 
-    ErrorSVG,
     WarningSVG
-} from "../../ui/svg"
+} from "@components/ui/svg"
 
 const FormField : FC<FormFieldProps> = ({title, placeholder, register, errors}) => {
     const tag = title.toLowerCase()
@@ -26,10 +26,10 @@ const FormField : FC<FormFieldProps> = ({title, placeholder, register, errors}) 
             ${errors[tag] && 'invalid'}
             `}/>
             {errors[tag]?.message && 
-                <div className="alert alert-warning mt-2">
+                <DevFormFieldWarning>
                     <WarningSVG />
                     <span>{errors[tag]?.message?.toString()}</span>
-                </div>}
+                </DevFormFieldWarning>}
         </DevFormField>   
    )
 }

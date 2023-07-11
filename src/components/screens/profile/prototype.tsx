@@ -1,12 +1,12 @@
 import { FC } from "react"
 import { User } from "@/models/user.model"
-import Cover from "./cover"
-import ProfileLayout from "./layout"
+import Cover from "./components/cover"
+import ProfileLayout from "./components/layout"
 
 import avatar from '../../../../public/team-2-800x800.jpg'
 
-import Header from "./header"
-import BasicInfo from "./basic-info"
+import Header from "./components/header"
+import BasicInfo from "./components/basic-info"
 
 interface PrototypeProps {
     user: User
@@ -33,8 +33,7 @@ const data = {
 
 const Prototype: FC<PrototypeProps> = ({user}) => {
 
-    const background = "\'https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80\'"
-
+    const background = "https://images.unsplash.com/photo-1499336315816-097655dcfbda"
     return (
         <div className="relative">
             <Cover background={background} />

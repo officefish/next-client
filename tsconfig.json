@@ -21,7 +21,8 @@
       "@services/*":["./src/services/*"],
       "@models/*":["./src/models/*"],
       "@utilities/*":["./src/utilities/*"],
-      "@public/*":["./public/*"]
+      "@public/*":["./public/*"],
+      "@hooks/*":["./src/hooks*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

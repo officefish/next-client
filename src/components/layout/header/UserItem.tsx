@@ -1,14 +1,44 @@
-import { FC } from "react"
+import { FC, MouseEvent } from "react"
 import { UserMin } from "@models/user.model"
-import Link from "next/link"
 
-const UserItem:FC<UserMin> = ({name}) => {
+import Image from "next/image"
+
+import {
+    NavigationButton,
+    StyledUserName
+} from "./styled-header"
+
+import { useRouter } from "next/router"
+
+const UserItem:FC<UserMin> = ({name, avatar}) => {
+
+    const router = useRouter()
+    const href = '/me'
+
+    const handleClick = (e:MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
+        router.push(href)
+    }
+
     return (
-    <div>
-        <Link className='ml-5 mr-2 hover:text-cyan-500 cursor-pointer text-lg whitespace-nowrap' href='/me'>{name}.</Link>
-    </div>
+    <NavigationButton onClick={handleClick}>
+        <div className="avatar">
+            <div className="w-6 mask mask-squircle">
+                {avatar && 
+                     <Image alt="avatar" 
+                     src={avatar.src} 
+                     width={24} 
+                     height={24} 
+                     className="w-6 mask mask-squircle" />
+                }
+            </div>
+        </div>
+        <StyledUserName>{name}</StyledUserName>
+    </NavigationButton>
 
     )
 }
+
+//<Link className='ml-5 mr-2 hover:text-cyan-500 cursor-pointer text-lg whitespace-nowrap' href='/me'>{name}.</Link>
 
 export default UserItem

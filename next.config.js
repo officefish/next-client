@@ -3,6 +3,10 @@ const path = require('node:path')
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  compiler: {
+    // Enables the styled-components SWC transform
+    styledComponents: true
+  },
   webpack: function (config, options) {    
     config.resolve = {
       ...config.resolve,
@@ -14,6 +18,7 @@ const nextConfig = {
         '@services': path.resolve(__dirname, './src/services/'),
         '@models': path.resolve(__dirname, './src/models/'),
         '@utilities': path.resolve(__dirname, './src/utilities/'),
+        '@hooks': path.resolve(__dirname, './src/hooks/'),
         '@public': path.resolve(__dirname, './public/')
       }
     }

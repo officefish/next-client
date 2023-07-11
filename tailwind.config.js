@@ -1,10 +1,10 @@
-const { typewindTransforms } = require('typewind/transform')
 const { fontFamily } = require('tailwindcss/defaultTheme')
 const { responsiveRegex } = require('./plugins/lib/responsiveRegex')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
+  //important: true,
   //safelist: responsiveRegex,
   content:{ 
     files: [
@@ -14,8 +14,7 @@ module.exports = {
       // Or if using `src` directory:
       "./src/**/*.{js,ts,jsx,tsx}",
       { raw: '' },
-    ],
-    transform: typewindTransforms
+    ]
   },
   theme: {
     extend: {

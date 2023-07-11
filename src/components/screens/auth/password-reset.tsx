@@ -11,8 +11,11 @@ import {
     DevFormLayout,
     DevFormWrapper,
     DevFormHeader2, 
-    Copyright
+    Copyright,
+    DevFormFieldError
 } from "@/components/form/dev-form-styled"
+
+import { ErrorSVG } from "@components/ui/svg"
 
 const email = {
     email: z.string({
@@ -59,6 +62,12 @@ const PasswordReset: FC<TokenProps> = ({email, expires, token}) => {
         <DevFormLayout> 
             <DevFormWrapper>
                 <DevFormHeader2>{title}</DevFormHeader2>
+                {serverError?.message && 
+                    <DevFormFieldError>
+                        <ErrorSVG />
+                        {serverError.message?.toString()} 
+                    </DevFormFieldError>
+                }  
                 <PasswordResetForm 
                     title={title}
                     register={register}
@@ -70,8 +79,6 @@ const PasswordReset: FC<TokenProps> = ({email, expires, token}) => {
                     token={token}
                 />
                 <Copyright>&#x00a9; 2023 Techies Group. All rights reserved.</Copyright>
-                {serverError?.message && 
-                    <p className="server_error">{serverError.message?.toString()}</p>}  
             </DevFormWrapper> 
         </DevFormLayout>         
   )

@@ -1,4 +1,5 @@
 import tw from "tailwind-styled-components"
+import styled from 'styled-components'
 
 export const StyledHeader = tw.header`
 fixed z-50 
@@ -41,13 +42,22 @@ export const StyledHeaderNavigation = tw.div<WithFontFamily>`
 flex 
 flex-row 
 justify-end items-end 
-h-[3.8rem] pr-8
+h-[3.8rem] pr-4
 text-base-content/50
 dark:text-base-content-dark/50
 ${(p) => p.$fontFamily? "font-" + p.$fontFamily : ""}
 `
 
 export const StyledDropdown = tw.div`dropdown dropdown-end`
+
+interface MaybeActive {
+    $active: boolean;
+}
+
+export const StyledDropdownButton = tw.button<MaybeActive>`
+btn
+${(p) => p.$active? "btn-primary" : "btn-ghost"}
+`
 
 export const StyledButton = tw.button`
 btn 
@@ -56,12 +66,13 @@ btn-ghost
 text-base-content/50 
 dark:text-base-content-dark/50
 `
-export const DropdownButton = tw(StyledButton)`gap-2`
+export const NavigationButton = tw(StyledButton)`gap-2`
 
 export const DropdownContent = tw.div`
 dropdown-content 
 top-px max-h-96 
-h-[70vh] w-52 
+h-[19vh]
+w-52 
 overflow-y-auto 
 mt-14
 rounded-t-box rounded-b-box 
@@ -70,4 +81,17 @@ bg-base-200
 text-base-content 
 dark:bg-base-200-dark 
 dark:text-base-content-dark
+`
+
+export const DropdownContentGrid = tw.div`
+grid grid-cols-1 gap-3 p-3
+`
+
+export const StyledUserName = styled.section`
+@media screen and (max-width: 540px) {
+    display: none
+}
+max-width: 16em;
+white-space: nowrap;
+overflow-x: hidden;
 `

@@ -6,6 +6,8 @@ import { ThemeProviderProps} from "./theme-provider/types"
 import { DesignSystemProviderProps } from "./design-system-provider/types"
 import { DesignSystemProvider } from "./design-system-provider"
 
+export { ProfileSettingsProvider, useProfileSettingStore } from './profile-settings-provider'
+
 interface ProviderProps {
     themeProps: ThemeProviderProps | undefined
     designSystemProps?: DesignSystemProviderProps | undefined
@@ -13,12 +15,26 @@ interface ProviderProps {
 
 const Providers: FC<PropsWithChildren<ProviderProps>> =  ({ children, themeProps, designSystemProps }) => {
   return ( 
-  <ThemeProvider {...themeProps}>
-    {designSystemProps 
-     ? <DesignSystemProvider {...designSystemProps}>{children}</DesignSystemProvider>
-     : <>{children}</>
-    } 
+  <ThemeProvider {...themeProps}> 
+    <MaybeDesignSistem {...designSystemProps}>
+      {children}
+    </MaybeDesignSistem>
   </ThemeProvider>)
 }
 
 export default Providers
+
+interface IWithDesignSystem {
+  designSystemProps?: DesignSystemProviderProps | undefined
+}
+
+const MaybeDesignSistem:FC<PropsWithChildren<IWithDesignSystem>> = ({children, designSystemProps}) => {
+  return ( 
+    <>{designSystemProps 
+    ? <DesignSystemProvider {...designSystemProps}>{children}</DesignSystemProvider>
+    : <>{children}</>
+    } 
+    </>
+    
+  )
+}

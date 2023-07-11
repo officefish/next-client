@@ -1,10 +1,14 @@
 export const modal = {
     
-    '.modal-bottom': {
-        '@apply items-end': {}
+    '.modal-top': {
+        '@apply place-items-start': {}
     },
 
     '.modal-middle': {
-        '@apply items-center': {}
+        '@apply place-items-center': {}
+    },
+
+    '.modal-bottom': {
+        '@apply place-items-end': {}
     }
 }
