@@ -7,7 +7,8 @@ import {
     ILocation,
     IQuote,
     IDomain,
-    IAvatar
+    IAvatar,
+    ICover
 } from "@/models/profile.types"
 
 export interface ISettingsState {
@@ -39,6 +40,10 @@ export interface ISettingsState {
     setAvatar: (newAvatar:IAvatar) => void
     isValidAvatar: boolean
     invalidAvatar: () => void
+    cover?: ICover
+    setCover: (newCover:ICover) => void
+    isValidCover: boolean
+    invalidCover: () => void
 }
 
 

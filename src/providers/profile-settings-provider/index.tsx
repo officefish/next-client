@@ -9,10 +9,12 @@ import {
     IEducation,
     IQuote,
     IDomain,
-    IAvatar
+    IAvatar,
+    ICover
 } from '@/models/profile.types'
 
 import avatar from '@public/team-2-800x800.jpg'
+const background = "@public/cover-149.jpeg"
 
 const NullFullName:IFullName = {
     firstName: '', 
@@ -44,12 +46,15 @@ const NullDomain:IDomain = {
     value: ''
 }
 
-
-
 const NullAvatar:IAvatar = {
     id: '1',
     imageUrl: avatar.src,
     croppedImageUrl: null
+}
+
+const NullCover:ICover = {
+    id: '1',
+    imageUrl: background
 }
 
 const createProfileSettingsStore = create<ISettingsState>()((set) => ({
@@ -81,7 +86,10 @@ const createProfileSettingsStore = create<ISettingsState>()((set) => ({
     setAvatar: (newAvatar:IAvatar) => set(() => ({ avatar: {...newAvatar}})),
     isValidAvatar: true,
     invalidAvatar: () => set(() => ({isValidAvatar: false})),
-    
+    cover: {...NullCover},
+    setCover: (newCover:ICover) => set(() => ({ cover: {...newCover}})),
+    isValidCover: true,
+    invalidCover: () => set(() => ({isValidCover: false})),
 }))
 
 const ProfileSettingsContext = createContext<typeof createProfileSettingsStore>()

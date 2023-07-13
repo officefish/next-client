@@ -4,15 +4,17 @@ import {
     StyledCollapseContainer,
 } from '../../styled-profile'
 
-import { IVisualsSettingsProps } from "@/models/settings.model"
-
 import VisualsAvatar from "./avatar"
+import VisualsCover from "./cover"
+import VisualsTartan from "./tartan"
 
-const VisualsSettings: FC<IVisualsSettingsProps> = ({avatarSrc}) => {
+const VisualsSettings: FC = () => {
 
     return (
         <StyledCollapseContainer>                     
-            <VisualsAvatar avatarSrc={avatarSrc} />
+            <VisualsAvatar />
+            <VisualsCover />
+            <VisualsTartan />
         </StyledCollapseContainer>
     )
 }

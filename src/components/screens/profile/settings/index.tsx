@@ -26,7 +26,7 @@ enum ESettingsMode {
     StylePreferences,
     Security,
     Integrations
-}
+} // refactor to as const
 
 type Props = {}
 const ProfileSettings: FC = (props: Props) => {
@@ -82,7 +82,7 @@ const renderSettingsMode = (mode:ESettingsMode) => {
         case ESettingsMode.Status:
             return <StatusSettings />  
         case ESettingsMode.Visuals:
-            return <VisualsSettings avatarSrc={avatar.src}/>
+            return <VisualsSettings />
         default:
             return <></>
     }

@@ -14,7 +14,7 @@ import {
     StyledAvatarPickerForm,
     StyledAvatarCropperContainer, 
     StyledAvatarCropperCloseBtn
-} from "../../styled-profile"
+} from "../../../styled-profile"
 
 interface IAvatarPicker {
     imageUrl: string

@@ -47,3 +47,8 @@ export interface IAvatar {
     imageUrl: string
     croppedImageUrl: string | null
 }
+
+export interface ICover {
+    id: string,
+    imageUrl: string 
+}
