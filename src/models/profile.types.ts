@@ -54,7 +54,7 @@ export interface ICover {
 }
 
 export interface IColorItem {
-    color: string,
+    color?: string,
     size: number
 }
 

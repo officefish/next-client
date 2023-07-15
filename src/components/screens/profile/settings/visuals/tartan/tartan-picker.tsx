@@ -1,6 +1,7 @@
-import {FC, useState, useEffect, useMemo, useRef } from 'react'
+import {FC, useState, useEffect, useMemo, useCallback, useRef, MouseEvent } from 'react'
 
-import { getTartanAsRender } from '@/services/tartan/svg-data.builder'
+import { getTartanAsRender } from '@services/tartan/svg-data.builder'
+import { generateRandomPattern } from '@services/tartan/random.pattern'
 
 import { styled } from 'styled-components'
 
@@ -20,9 +21,9 @@ import { ITartan, ITartanPatternColors } from '@/models/profile.types'
 
 interface ITartanPicker extends ITartan {
     setColors: (value:ITartanPatternColors) => void
-    setSvgSrc: (value:string) => void
-    setPngSrc: (value:string) => void
-    isCollapsed: boolean
+    setSvgSrc: (value:string | null) => void
+    setPngSrc: (value:string | null) => void
+    blockRender: boolean
 }
 
 const TartanPicker:FC<ITartanPicker> = (props) => {
@@ -31,27 +32,24 @@ const TartanPicker:FC<ITartanPicker> = (props) => {
         pngSrc, setPngSrc, 
         colors, setColors,
         setSvgSrc,
-        isCollapsed
+        blockRender
     } = props
 
+    const [isLoading, setIsLoading] = useState(false)
+   
     const canvasRef = useRef(null)
 
     useEffect(() => {
 
         const fetchData = async () => {
 
-            console.log(colors)
-            
             // get svg builder render (valid <svg> html Tag )
             const newSvgData = await getTartanAsRender(colors)  
-            
-            console.log(newSvgData)
-
+        
             // conver <svg> tag to data
             const newBuf = `data:image/svg+xml;base64,${btoa(newSvgData)}`
-
             setSvgSrc(newBuf)
-        
+
             const image = new Image
             image.src = newBuf
             
@@ -67,32 +65,56 @@ const TartanPicker:FC<ITartanPicker> = (props) => {
                     if (context) {
                         context.drawImage(image, 0, 0)
                         const canvasdata = canvas.toDataURL("image/png")
-                        console.log(canvasdata)
                         setPngSrc(canvasdata)
+
+                        setIsLoading(false)
                     }
                 }
             }
-
         }
+
+        if (pngSrc !== null) return
+        if (blockRender) return
     
         fetchData()
     
-    }, [colors, isCollapsed])
+    }, [colors, blockRender])
 
+    const handleRandom = (e:MouseEvent<HTMLButtonElement>) => {
+        
+        e.preventDefault()
+        setIsLoading(true)
 
- 
+        const generate = async () => {
+            setTimeout(async function() {
+                //your code to be executed after 1 second
+                const colors = await generateRandomPattern() satisfies ITartanPatternColors
+                setColors(colors)
+              }, 1000)
+        } 
+
+        generate()
+        
+
+    }
+
     //const memoizedPng = useMemo(() => pngSrc, [pngSrc])
 
     return (
         <div className='w-full grid grid-rows-1 grid-cols-6 gap-4'>
             <div className='col-span-4'>
-                <CoverImage $background={pngSrc? pngSrc : undefined} className='w-full h-40 rounded'/>
+                {isLoading || pngSrc === null
+                    ? 
+                    <div className='w-full h-40 outline-none border-2 rounded flex items-center justify-center border-accent dark:border-accent-dark'>
+                        <span className="loading loading-ring text-accent dark:text-accent-dark loading-lg"></span>
+                    </div>
+                    : <CoverImage $background={pngSrc? pngSrc : undefined} className='w-full h-40 rounded'/>
+                } 
                 <canvas ref={canvasRef} hidden/>
-                <img src={props.svgSrc ? props.svgSrc : undefined} alt="" />
             </div>
             <div className='col-span-2'>
                 <div className='w-full h-full relative'>
-                    <button className='btn btn-accent btn-outline btn-block absolute top-0'>Random</button>
+                    <button className='btn btn-accent btn-outline btn-block absolute top-0' onClick={handleRandom}>Random</button>
                     <button className='btn btn-accent btn-outline btn-block absolute bottom-0' disabled>Editor</button>
                 </div>
              </div>

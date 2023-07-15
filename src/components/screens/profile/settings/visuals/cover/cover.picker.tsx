@@ -2,6 +2,8 @@ import { FC, ChangeEvent, useState } from "react"
 
 //import Image from "next/image"
 
+import { ErrorSVG, InfoSVG } from "@/components/ui/svg"
+
 import { 
     StyledAvatarPickerInput,
     CoverImage
@@ -93,10 +95,12 @@ export const CoverPicker:FC<ICoverPicker> = ({imageUrl, setImageUrl})  => {
 
             {error 
             ? <div className="alert alert-error text-xs">
+                <ErrorSVG />
                 {error}
             </div>
             : !success 
                 ? <div className="alert alert-info text-xs">
+                    <InfoSVG />
                     {warning}    
                 </div>
                 : <div className="relative w-full h-[64px]">

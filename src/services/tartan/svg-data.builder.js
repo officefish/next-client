@@ -7,8 +7,6 @@ import { CSS_COLORS } from './css-colors'
  */  
 const asSequence = colors => {
 
-    console.log('asSequence: ', colors)
-
     const sequence = []
     for (let c = 0; c < colors.length; c++) {
       const color = colors[c]
@@ -103,8 +101,6 @@ const getBuilder = (colors) => {
     
     const sequence = asSequence(colors)
 
-    console.log(sequence)
-
     const seqLen = sequence.length
     const matrixLen = seqLen * 2
     
@@ -131,12 +127,6 @@ const getBuilder = (colors) => {
             builder.rect(ff)
         }
     }
-
-    //builder
-
-    //console.log(builder)
-    
-    //console.log(svgData)
 
     return builder
 }

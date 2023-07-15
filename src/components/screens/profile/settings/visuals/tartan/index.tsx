@@ -15,31 +15,39 @@ import TartanPicker from "./tartan-picker"
 
 const VisualsTartan:FC = () => {
 
-    //const [imageUrl, setImageUrl] = useState(coverSrc)
+    const [isCollapsed, setIsCollapsed] = useState(false)
 
     const {tartan, setTartan, invalidTartan} = useProfileSettingStore()
 
     const setColors = (newColors:ITartanPatternColors) => {
         if(tartan === undefined) return
-        setTartan({...tartan, colors: [...newColors]})
+        setTartan({
+            id:tartan.id? tartan.id : '1',
+            svgSrc: null,
+            pngSrc: null,
+            colors: [...newColors]})
+
         invalidTartan()
     }
 
-    const setSvgSrc = (svgSrc:string) => {
+    const setSvgSrc = (svgSrc:string | null) => {
         if(tartan === undefined) return
         setTartan({...tartan, svgSrc})
         invalidTartan()
     }
 
-    const setPngSrc = (pngSrc:string) => {
+    const setPngSrc = (pngSrc:string | null) => {
         if(tartan === undefined) return
         setTartan({...tartan, pngSrc})
         invalidTartan()
     }
 
+    const handleCollabse = (newIsCollapsed:boolean) => {
+        setIsCollapsed(newIsCollapsed)
+    } 
     
     return (                                    
-        <CollapseSection name="Tartan">
+        <CollapseSection name="Tartan" onCollapse={handleCollabse}>
             <StyledSettingsDiv>
                 <StyledSettingsField>
                     <StyledSettingsLabel>Tartan pattern:</StyledSettingsLabel>
@@ -51,7 +59,7 @@ const VisualsTartan:FC = () => {
                         setPngSrc={setPngSrc}
                         svgSrc={tartan?.svgSrc ? tartan.svgSrc : null}
                         setSvgSrc={setSvgSrc}
-                        isCollapsed={false}
+                        blockRender={!isCollapsed}
                         />
                     </div>
                 </StyledSettingsField>

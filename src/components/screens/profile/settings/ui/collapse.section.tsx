@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, PropsWithChildren } from "react"
+import { FC, useState, useRef, useEffect, PropsWithChildren, MouseEvent } from "react"
 import useComponentOutside from "@/hooks/component-outside"
 
 import {
@@ -8,24 +8,39 @@ import {
     SettingsContentDelimeter
     
 } from '../../styled-profile'
+import { setTimeout } from "timers"
 
 interface ICollapseSection extends PropsWithChildren {
-    name: string
+    name: string,
+    onCollapse?: (isCollapsed:boolean) => void
 }
 
 
-const CollapseSection:FC<ICollapseSection> = ({name, children}) => {
+const CollapseSection:FC<ICollapseSection> = ({name, onCollapse, children}) => {
 
     const {ref, isComponentOutside } = useComponentOutside(true)
     const [forseCollapse, setForseCollapse] = useState(false)
+    const click = useRef(0)
+    //const collapseRef = useRef(null)
 
     useEffect(() => {
        setForseCollapse(!isComponentOutside)
-    }, [isComponentOutside])
+
+       if (ref && ref.current && onCollapse) {
+           const section:HTMLElement = ref.current
+           const isCollapsed = section.classList.contains('collapse-open')
+           onCollapse(!isCollapsed)
+       }
+
+    }, [isComponentOutside, click])
+
+    const clickHandle = (e:MouseEvent<HTMLElement>) => {
+        click.current += 1
+    } 
 
     return (                                    
-        <StyledCollapseSection ref={ref} $forceCollapse={forseCollapse}>
-            <input type="checkbox" className="w-[1px] h-[1px]"/> 
+        <StyledCollapseSection ref={ref} $forceCollapse={forseCollapse} onClick={clickHandle}>
+            {/* <input type="checkbox" className="w-[1px] h-[1px]" onChange={handleAnimationEnd}/>  */}
             <StyledCollapseSectionTitle>
                 {name}
             </StyledCollapseSectionTitle>
