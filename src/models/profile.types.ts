@@ -52,3 +52,18 @@ export interface ICover {
     id: string,
     imageUrl: string 
 }
+
+export interface IColorItem {
+    color: string,
+    size: number
+}
+
+export interface ITartanPatternColors extends Array<IColorItem> {}
+
+export interface ITartan {
+    id?: string,
+    colors: ITartanPatternColors | undefined | null
+    svgSrc: string | null
+    pngSrc: string | null
+}
+

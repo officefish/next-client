@@ -9,32 +9,34 @@ import {
 } from '../../../styled-profile'
 
 import { useProfileSettingStore } from "@/providers"
-import { ITartanPatternData, TartanPattern } from "@/services/tartan"
 
-const pattern = [
-    {color: '#d7e1e8', size:23},
-    {color: "#bd8c16", size:14},
-    {color: '#d7e1e8', size:9},
-    {color: '#0c2449', size:32},
-    {color: '#d7e1e8', size:39},
-    {color: '#bd8c16', size:15},
-    {color: '#d7e1e8', size:2}
-  ] satisfies ITartanPatternData
+import { ITartanPatternColors } from "@/models/profile.types"
+import TartanPicker from "./tartan-picker"
 
 const VisualsTartan:FC = () => {
 
     //const [imageUrl, setImageUrl] = useState(coverSrc)
 
-    // const {cover, setCover, invalidCover} = useProfileSettingStore()
+    const {tartan, setTartan, invalidTartan} = useProfileSettingStore()
 
-    // const setImageUrl = (value:string) => {
-        
-    //     setCover({
-    //         id: cover?.id ? cover.id : '1', 
-    //         imageUrl: value})
+    const setColors = (newColors:ITartanPatternColors) => {
+        if(tartan === undefined) return
+        setTartan({...tartan, colors: [...newColors]})
+        invalidTartan()
+    }
 
-    //     invalidCover()
-    // }
+    const setSvgSrc = (svgSrc:string) => {
+        if(tartan === undefined) return
+        setTartan({...tartan, svgSrc})
+        invalidTartan()
+    }
+
+    const setPngSrc = (pngSrc:string) => {
+        if(tartan === undefined) return
+        setTartan({...tartan, pngSrc})
+        invalidTartan()
+    }
+
     
     return (                                    
         <CollapseSection name="Tartan">
@@ -42,7 +44,15 @@ const VisualsTartan:FC = () => {
                 <StyledSettingsField>
                     <StyledSettingsLabel>Tartan pattern:</StyledSettingsLabel>
                     <div className="flex flex-row w-full">
-                        <TartanPattern colors={pattern}/>
+                        <TartanPicker 
+                        colors={tartan?.colors}
+                        setColors={setColors}
+                        pngSrc={tartan?.pngSrc ? tartan.pngSrc : null}
+                        setPngSrc={setPngSrc}
+                        svgSrc={tartan?.svgSrc ? tartan.svgSrc : null}
+                        setSvgSrc={setSvgSrc}
+                        isCollapsed={false}
+                        />
                     </div>
                 </StyledSettingsField>
             </StyledSettingsDiv>

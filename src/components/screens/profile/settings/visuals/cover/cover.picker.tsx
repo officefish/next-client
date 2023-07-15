@@ -54,34 +54,30 @@ export const CoverPicker:FC<ICoverPicker> = ({imageUrl, setImageUrl})  => {
                     
                     const height = image.height
                     const width = image.width
-                    
-                    if (height < MIN_HEIGHT) {
-                        setSuccess(false)
-                        setError("Image Height is too small.")
-                        return false
+
+                    switch (true) {
+                        case height < MIN_HEIGHT:
+                          setSuccess(false)
+                          setError("Image Height is too small.")
+                          return false
+                        case width < MIN_WIDTH:
+                          setSuccess(false)
+                          setError("Image Width is too small.")
+                          return false
+                        case height > MAX_HEIGHT:
+                          setSuccess(false)
+                          setError("Image height is too large.")
+                          return false
+                        case width > MAX_WIDTH:
+                          setSuccess(false)
+                          setError("Image width is too large.")
+                          return false
+                        default:
+                          setError(undefined)
+                          setSuccess(true)
+                          setImageUrl(image.src)
+                          return true
                     }
-                    else if (width < MIN_WIDTH) {
-                        setSuccess(false)
-                        setError("Image Width is too small.")
-                        return false
-                    } 
-                    else if (height > MAX_HEIGHT) {
-                        setSuccess(false)
-                        setError("Image height is too large.")
-                        return false
-                    } 
-                    else if (width > MAX_WIDTH) {
-                        setSuccess(false)
-                        setError("Image width is too large.")
-                        return false
-                    } 
-                    else {
-                        setError(undefined)
-                        setSuccess(true)
-                        setImageUrl(image.src)
-                        return true 
-                    }
-                    //alert("Uploaded image has valid Height and Width.");
                 }
             }
         }

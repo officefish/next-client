@@ -1,8 +1,5 @@
-import TartanPattern from "./tartan-pattern"
-import { ITartanPattern, ITartanPatternData } from "./types"
+import {getTartanAsRender} from './svg-data.builder'
 
-export {
-    TartanPattern,
-    type ITartanPatternData,
-    type ITartanPattern
+export default {
+    getTartanAsRender
 }

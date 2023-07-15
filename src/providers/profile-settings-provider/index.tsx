@@ -10,7 +10,9 @@ import {
     IQuote,
     IDomain,
     IAvatar,
-    ICover
+    ICover,
+    ITartan,
+    ITartanPatternColors
 } from '@/models/profile.types'
 
 import avatar from '@public/team-2-800x800.jpg'
@@ -57,6 +59,25 @@ const NullCover:ICover = {
     imageUrl: background
 }
 
+const tartanPngSrc = ''
+
+const pattern = [
+    {color: '#d7e1e8', size:23},
+    {color: "#bd8c16", size:14},
+    {color: '#d7e1e8', size:9},
+    {color: '#0c2449', size:32},
+    {color: '#d7e1e8', size:39},
+    {color: '#bd8c16', size:15},
+    {color: '#d7e1e8', size:2}
+  ] satisfies ITartanPatternColors
+
+const NullTartan:ITartan = {
+    id: '',
+    pngSrc: null,
+    svgSrc: null,
+    colors: [...pattern]
+}
+
 const createProfileSettingsStore = create<ISettingsState>()((set) => ({
     fullName: {...NullFullName},
     setFullName: (newFullName:IFullName) => set(() => ({ fullName: {...newFullName}})),
@@ -90,6 +111,10 @@ const createProfileSettingsStore = create<ISettingsState>()((set) => ({
     setCover: (newCover:ICover) => set(() => ({ cover: {...newCover}})),
     isValidCover: true,
     invalidCover: () => set(() => ({isValidCover: false})),
+    tartan: {...NullTartan},
+    setTartan: (newTartan:ITartan) => set(() => ({ tartan: {...newTartan}})),
+    isValidTartan: true,
+    invalidTartan: () => ({isValidTartan: false}),
 }))
 
 const ProfileSettingsContext = createContext<typeof createProfileSettingsStore>()

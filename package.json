@@ -33,6 +33,7 @@
     "react-easy-crop": "^5.0.0",
     "react-hook-form": "^7.43.8",
     "react-select": "^5.7.3",
+    "react-sizeme": "^3.0.2",
     "react-timezone-select": "^2.1.2",
     "styled-components": "^6.0.1",
     "svg-builder": "^2.0.0",

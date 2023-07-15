@@ -8,7 +8,8 @@ import {
     IQuote,
     IDomain,
     IAvatar,
-    ICover
+    ICover,
+    ITartan
 } from "@/models/profile.types"
 
 export interface ISettingsState {
@@ -44,6 +45,10 @@ export interface ISettingsState {
     setCover: (newCover:ICover) => void
     isValidCover: boolean
     invalidCover: () => void
+    tartan?: ITartan
+    setTartan: (newTartan:ITartan) => void
+    isValidTartan: boolean
+    invalidTartan: () => void
 }
 
 

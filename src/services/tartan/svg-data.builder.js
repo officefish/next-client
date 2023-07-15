@@ -6,6 +6,9 @@ import { CSS_COLORS } from './css-colors'
    becomes a sequence [ '#fff', '#fff', '#fff', '#000', '#000', '#000', '#fff', '#fff']
  */  
 const asSequence = colors => {
+
+    console.log('asSequence: ', colors)
+
     const sequence = []
     for (let c = 0; c < colors.length; c++) {
       const color = colors[c]
@@ -99,6 +102,9 @@ const getBuilder = (colors) => {
     const seamSize = 2
     
     const sequence = asSequence(colors)
+
+    console.log(sequence)
+
     const seqLen = sequence.length
     const matrixLen = seqLen * 2
     
@@ -136,7 +142,8 @@ const getBuilder = (colors) => {
 }
 
 
-export const getRenderAsString = async (colors) => {
+export const getTartanAsRender = async (colors) => {
+
     return new Promise(resolve => {
         const builder = getBuilder(colors)
         resolve(builder.render())
