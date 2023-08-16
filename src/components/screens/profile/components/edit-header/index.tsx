@@ -1,8 +1,8 @@
 import { FC } from "react"
 
 import { StyledProfileHeader } from "../../styled-profile"
-import HeaderStats from "./stats"
-import HeaderFunctional from "./functional"
+import EditHeaderFunctional from "./edit-functional"
+import SettingsBreadcrumbs from "./settings-breadcrumbs"
 
 export enum EHeaderMode {
   Profile,
@@ -15,14 +15,14 @@ interface IHeaderProps {
   stats?: IHeaderStatsData
 }
 
-const Header: FC<IHeaderProps> = ({stats}) => {
+const EditHeader: FC<IHeaderProps> = ({stats}) => {
 
 return (
     <StyledProfileHeader>
-        <HeaderStats data={stats} />
-        <HeaderFunctional />
+       <SettingsBreadcrumbs />
+        <EditHeaderFunctional />
     </StyledProfileHeader>
   )
 }
-export default Header
+export default EditHeader
 

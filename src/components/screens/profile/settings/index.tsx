@@ -4,8 +4,7 @@ import useOnlyWithUser from "@/hooks/with-user-only"
 import {
     Cover,
     ProfileLayout,
-    Header,
-    EHeaderMode
+    EditHeader
 } from "../components"
 
 import BasicInfoSettings from "./basic-info"
@@ -54,7 +53,7 @@ const ProfileSettings: FC = (props: Props) => {
         <div className="relative">
             <Cover background={background} />
             <ProfileLayout avatar={avatar}>
-                <Header mode={EHeaderMode.Settings}/>
+                <EditHeader />
                 <Tabs>
                     <TabItem 
                     currentMode={settingsMode} mode={ESettingsMode.BasicInfo} 

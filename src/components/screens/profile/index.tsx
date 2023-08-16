@@ -7,7 +7,6 @@ import {
     ProfileLayout,
     Header,
     BasicInfo,
-    EHeaderMode,
     ProfileQuote,
     ResentActivities
 } from "./components"
@@ -67,7 +66,7 @@ const Profile:FC = () => {
         ? <div className="relative">
               <Cover background={background} />
               <ProfileLayout avatar={avatar}>
-                  <Header stats={headerData} mode={EHeaderMode.Profile}/>
+                  <Header stats={headerData}/>
                   <BasicInfo data={basicInfoData} />
                   <ProfileDelimeter />
                   <ProfileQuote value={quoteData}/>
